@@ -120,7 +120,7 @@ This step is where the actual learning happens. Here by judging the cost functio
 
 After calculating $J(\mathbf{w},b)$ we update the parameters by using $(1)$ and $(2)$. Then we will repeat the process again by calculating the $J(\mathbf{w},b)$ until it minimizes.
 
-$\text{repeat until minimization achieved} \; \lbrace$
+$\text{repeat until minimization achieved} \lbrace$
 $$w_j := w_j - \alpha\frac{\partial J(\mathbf{w},b)}{\partial w_j} \tag{1}$$
 $$\text{for j := 0...n-1}$$
 $$b := b - \alpha\frac{\partial J(\mathbf{w},b)}{\partial b} \tag{2}$$
@@ -128,9 +128,11 @@ $$b := b - \alpha\frac{\partial J(\mathbf{w},b)}{\partial b} \tag{2}$$
 $\rbrace$
 
 where,
+
 $$
 \frac{\partial J(\mathbf{w},b)}{\partial b}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - \mathbf{y}^{(i)}) \tag{3}
 $$
+
 $$
 \frac{\partial J(\mathbf{w},b)}{\partial w_j}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - \mathbf{y}^{(i)})x_{j}^{(i)} \tag{4}
 $$
@@ -222,7 +224,7 @@ The only change in math are following:
 
 * The gradient descent algorithm too changes:
 
-    $\text{repeat until minimization achieved} \; \lbrace$
+    $\text{repeat until minimization achieved} \lbrace$
     $$w_j := (1 - \alpha \frac{\lambda}{m})w_j - \alpha\frac{\partial J(\mathbf{w},b)}{\partial w_j} \tag{3}$$
     $$\text{for j := 0...n-1}$$
     $$b := b - \alpha\frac{\partial J(\mathbf{w},b)}{\partial b} \tag{4}$$
