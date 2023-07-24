@@ -217,7 +217,7 @@ The only change in math are following:
 
 * The cost function changes to:
 
-    $$ J(\mathbf{w},b) = \frac{1}{m}\sum_{i=0}^{m-1} \left[ loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) \right] + \frac{\lambda}{2m}  \sum_{j=0}^{n-1} w_j^2$$
+    $$J(\mathbf{w},b) = \frac{1}{m}\sum_{i=0}^{m-1} \left[ loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) \right] + \frac{\lambda}{2m}  \sum_{j=0}^{n-1} w_j^2$$    
 
     * $\lambda$ is the regularised parameter(hyperparameter). which is also a value we decide. The more the $\lambda$ the more is the regularisation and vice versa.
     * $n$ is the number of features
