@@ -1,3 +1,10 @@
+# User Guide
+There are two main files on this project.
+* <a href="./Logistic_regression.py">Logistic_regression.py</a> : My implementation of Logistic regression from scratch.
+* <a href="./sklearn_Logistic_regression.py">sklearn_Logistic_regression.py</a> : My implementation of Logistic regression using the scikit-learn Library.
+
+Simply run the python files to get the accuracy on both training set and test set by both implementations.
+
 # Logistic Regression
 The principal use of the logistic regression is in classification assignments where the objective is to estimate the likelihood that a given instance belongs to a particular class. Regression is used because it uses a sigmoid function to estimate the probability for the given class using the output of a linear regression function as input. 
 
