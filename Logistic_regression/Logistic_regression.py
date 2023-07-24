@@ -49,7 +49,7 @@ class Logistic_regressor:
 
     # computing the cost function: binary cross entropy
     def compute_cost(self):
-        # No of examples
+        # No of examples and features
         m, f = np.shape(self.X_train)
 
         # computing and generating an array of sigmoid values of X_train
