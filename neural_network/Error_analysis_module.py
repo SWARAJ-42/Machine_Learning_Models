@@ -1,10 +1,10 @@
 import numpy as np
 
-# mean squared error loss function
+# mean squared error loss function for single example
 def mse_cost(y_expected, y_activation):
     return np.mean(np.power(y_expected - y_activation, 2))
 
-# binary cross entropy loss function
+# binary cross entropy loss function for single example
 def logistic_cost(y_expected, y_activation):
     Loss = -y_expected * np.log(y_activation) - (1 - y_expected)*np.log(1-y_activation)
     Cost = np.sum(Loss) / np.size(y_expected)
