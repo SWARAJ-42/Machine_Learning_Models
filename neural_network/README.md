@@ -1,3 +1,5 @@
+**_NOTE:_**  Before going through this module. Please take a look into <a href="https://github.com/SWARAJ-42/Machine_Learning_Models/blob/main/Logistic_regression/README.md">Logistic Regression</a> first because the concepts used there are also implemented here.
+
 # User Guide
 There are two main files on this project.
 * <a href="./Neural_Network.py">Neural_Network.py</a> : My implementation of Neural Networks from scratch.
@@ -108,7 +110,7 @@ Lets understand how forward propagation works on every custom Layer.
     forward propagation in this layer is given by,
 
     $$Y = W.X + B$$ 
-    where $W = [w_1,w_2,w_3....w_j]$ and $B = [b]$ are the local parameters for every `Dense(Layer)` are generated randomly by the layer class initially and then are updated to train the model.
+    where $W = [W_1,W_2,W_3....W_i][w_1,w_2,w_3....w_j]$ and $B = [b_1, b_2...b_i]$ are the local parameters for every `Dense(Layer)` are generated randomly by the layer class initially and then are updated to train the model.
 
     Here is the code implemented:
 
@@ -170,7 +172,7 @@ Since we are working on a classification model. We will be using sigmoid as the 
 This is the cost function (binary cross entropy function) implementation for sigmoid from <a href="./Error_analysis_module.py">Error_analysis_module.py</a>:
 
 ```python
-    # binary cross entropy loss function for single example.
+    # binary cross entropy loss function
     def logistic_cost(y_expected, y_activation):
         Loss = -y_expected * np.log(y_activation) - (1 - y_expected)*np.log(1-y_activation)
         Cost = np.sum(Loss) / np.size(y_expected)
@@ -186,6 +188,65 @@ After finding the cost function we get the error. Now its time for training the 
 * Dense layers
 
 The order of backpropagation will opposite to that of <a href="#forward-propagation">forward propagation</a>.
+
+Each Layer has to go through the following procedure:
+
+$$...Layer \larr \frac{\partial E}{\partial X} \larr Layer(\text{W and B are updated}) \larr \frac{\partial E}{\partial Y} \larr Layer...$$
+
+$Layer \text{ is represented as}:$
+$$\frac{\partial E}{\partial X}\larr Dense \larr \frac{\partial E}{\partial Y} \harr \frac{\partial E}{\partial X_a}\larr Activation \larr\frac{\partial E}{\partial Y_a} \harr\frac{\partial E}{\partial Y}$$
+
+here each $layer$ is the combination of a Dense Layer and its corresponding activation layer.
+
+Backpropagation has 3 things we have to take care in each layer:
+* Updating the $W$ i.e. $W := W-\alpha\frac{\partial E}{\partial W}$.
+* Updating the $B$ i.e. $B := B-\alpha\frac{\partial E}{\partial B}$.
+* Calculating the local gradient for it to be input for previous layer $\frac{\partial E}{\partial X}$. 
+
+Here $E$ is the cost function generated in final output layer and $X$ is the input values in the present layer or the output values of previous layer. $W$ and $B$ are matrix of parameters for each of next layer neuron specific to the present layer itself.
+
+we can't directly calculate(program) $\frac{\partial E}{\partial W}$, $\frac{\partial E}{\partial B}$, $\frac{\partial E}{\partial X}$ but we can use chain rule i.e. we can calculate these using $\frac{\partial E}{\partial Y}$.
+
+* Underlying equation of activation layer
+$$\frac{\partial E}{\partial X_a} = \frac{\partial E}{\partial Y_a} *f^1(X_a) \tag{1}$$
+
+Here is the code implementation:
+```python
+    class Activation(Layer):
+    ...
+    ...
+    
+    def backward(self, output_gradient, learning_rate):
+        return np.multiply(output_gradient, self.activation_prime(self.input))
+```
+
+* Underlying equation of corresponding dense layer
+$$\frac{\partial E}{\partial W} = X^{transpose}\frac{\partial E}{\partial Y} \tag{1}$$
+$$\frac{\partial E}{\partial B} = \frac{\partial E}{\partial Y} \tag{2}$$
+$$\frac{\partial E}{\partial W} = \frac{\partial E}{\partial Y}W^{transpose} \tag{3}$$
+
+Here is the code implementation:
+```python
+    class Dense(Layer):
+    ...
+    ...
+    
+    def backward(self, output_gradient, learning_rate):
+        weights_gradient = np.dot(output_gradient, self.input.T)
+        # Applying gradient descent on the weights and biases along with regularisation on weights only
+        # To be specific this is the actual learning part on every layer because the weights and biases are being updated
+        self.weights -= (learning_rate * weights_gradient + learning_rate * self.lambda_value / np.size(self.output_size) * self.weights)
+        self.bias -= learning_rate * output_gradient 
+        return np.dot(self.weights.T, output_gradient) # The output is for the previous layer
+```
+
+We shall not go into the underlying mathematics of above equations. Keep in mind that this works out. To go deeper into the mathematics of neural networks refer <a href="https://towardsdatascience.com/math-neural-network-from-scratch-in-python-d6da9f29ce65">here</a>.
+
+
+
+
+
+
 
 
 
