@@ -196,7 +196,7 @@ Each Layer has to go through the following procedure:
 $$...Layer \leftarrow \frac{\partial E}{\partial X} \leftarrow Layer(\text{W and B are updated}) \leftarrow \frac{\partial E}{\partial Y} \leftarrow Layer...$$
 
 $Layer \text{ is represented as}:$
-$$\frac{\partial E}{\partial X}\leftarrow Dense\leftarrow \frac{\partial E}{\partial Y}\leftrightarrow \frac{\partial E}{\partial X_a}\leftarrow Activation\leftarrow \frac{\partial E}{\partial Y_a}\harr \frac{\partial E}{\partial Y}$$
+$$\frac{\partial E}{\partial X}\leftarrow Dense\leftarrow \frac{\partial E}{\partial Y}\leftrightarrow \frac{\partial E}{\partial X_a}\leftarrow Activation\leftarrow \frac{\partial E}{\partial Y_a}\leftrightarrow \frac{\partial E}{\partial Y}$$
 
 here each $layer$ is the combination of a Dense Layer and its corresponding activation layer.
 
