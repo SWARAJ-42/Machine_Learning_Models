@@ -121,9 +121,9 @@ Lets understand how forward propagation works on every custom Layer.
                 self.bias = np.random.randn(output_size, 1)
                 ...
                 ...
-            def forward(self, input):
-                self.input = input
-                return np.dot(self.weights, self.input) + self.bias 
+                def forward(self, input):
+                    self.input = input
+                    return np.dot(self.weights, self.input) + self.bias 
                 ...
     ```
 
