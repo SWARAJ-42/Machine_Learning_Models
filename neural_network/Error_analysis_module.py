@@ -1,24 +1,25 @@
 import numpy as np
 
 # mean squared error loss function
-def mse_loss(y_true, y_pred):
-    return np.mean(np.power(y_true - y_pred, 2))
+def mse_cost(y_expected, y_activation):
+    return np.mean(np.power(y_expected - y_activation, 2))
 
-# mean squared error loss gradient: for back propagation
-# this gradient function can also be used for the binary cross entropy loss because the math works out automatically for (specifically binary cross entropy) the only difference is the way of calculating the y_pred. 
-def cost_prime(y_true, y_pred):
-    return 2 * (y_pred-y_true) / np.size(y_true)
-
-def logistic_cost(y_true, y_pred):
-    Loss = -y_true * np.log(y_pred) - (1 - y_true)*np.log(1-y_pred)
-    Cost = np.sum(Loss) / np.size(y_true)
+# binary cross entropy loss function
+def logistic_cost(y_expected, y_activation):
+    Loss = -y_expected * np.log(y_activation) - (1 - y_expected)*np.log(1-y_activation)
+    Cost = np.sum(Loss) / np.size(y_expected)
     return Cost
 
+# mean squared error loss gradient: for back propagation
+# this gradient function can also be used for the binary cross entropy loss because the math works out automatically for (specifically binary cross entropy) the only difference is the way of calculating the y_activation (which is specific to the activation function being used). 
+def cost_prime(y_expected, y_activation):
+    return 2 * (y_activation-y_expected) / np.size(y_expected)
+
 # I made a custom error calculation function for sigmoid function as the output layer for the network
-def binary_error(y_true, y_pred):
+def binary_error(y_expected, y_activation):
     i=0
-    for y,yi in zip(y_pred, y_true):
+    for y,yi in zip(y_activation, y_expected):
         if int(y) != int(yi):
             i+=1
-    return i / np.size(y_true)
+    return i / np.size(y_expected)
 
