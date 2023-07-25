@@ -221,8 +221,8 @@ Here is the code implementation in <a href="./Layers_module.py">Layers_module.py
     ...
     ...
     
-    def backward(self, output_gradient, learning_rate):
-        return np.multiply(output_gradient, self.activation_prime(self.input))
+        def backward(self, output_gradient, learning_rate):
+            return np.multiply(output_gradient, self.activation_prime(self.input))
 ```
 
 * Underlying equation of corresponding dense layer
@@ -236,13 +236,13 @@ Here is the code implementation in <a href="./Layers_module.py">Layers_module.py
     ...
     ...
     
-    def backward(self, output_gradient, learning_rate):
-        weights_gradient = np.dot(output_gradient, self.input.T)
-        # Applying gradient descent on the weights and biases along with regularisation on weights only
-        # To be specific this is the actual learning part on every layer because the weights and biases are being updated
-        self.weights -= (learning_rate * weights_gradient + learning_rate * self.lambda_value / np.size(self.output_size) * self.weights)
-        self.bias -= learning_rate * output_gradient 
-        return np.dot(self.weights.T, output_gradient) # The output is for the previous layer
+        def backward(self, output_gradient, learning_rate):
+            weights_gradient = np.dot(output_gradient, self.input.T)
+            # Applying gradient descent on the weights and biases along with regularisation on weights only
+            # To be specific this is the actual learning part on every layer because the weights and biases are being updated
+            self.weights -= (learning_rate * weights_gradient + learning_rate * self.lambda_value / np.size(self.output_size) * self.weights)
+            self.bias -= learning_rate * output_gradient 
+            return np.dot(self.weights.T, output_gradient) # The output is for the previous layer
 ```
 
 We shall not go into the underlying mathematics of above equations. Keep in mind that this works out. To go deeper into the mathematics of neural networks refer <a href="https://towardsdatascience.com/math-neural-network-from-scratch-in-python-d6da9f29ce65">here</a>.
