@@ -163,7 +163,7 @@ Lets understand how forward propagation works on every custom Layer.
 
 ## Cost Function
 
-After reaching the output layer on forward propagation we have to find the cost function on the output layer for the parameters $W$ and $B$ on every layers. We can recall the importance of cost function from the <a href="../Logistic_regression/README.md">Logistic Regression</a> task.
+After reaching the output layer on forward propagation we have to find the cost function on the output layer for the parameters $W$ and $B$ on every layers. We can recall the importance of cost function from the <a href="https://github.com/SWARAJ-42/Machine_Learning_Models/blob/main/Logistic_regression/README.md">Logistic Regression</a> task.
 
 Since we are working on a classification model. We will be using sigmoid as the activation function of the output layer.
 
