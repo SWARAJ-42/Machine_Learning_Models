@@ -237,3 +237,7 @@ The only change in math are following:
     $$b := b - \alpha\frac{\partial J(\mathbf{w},b)}{\partial b} \tag{4}$$
 
     $\rbrace$
+
+## Congratulations
+
+we are done with our logistic regression implementation.

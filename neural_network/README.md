@@ -201,11 +201,13 @@ $$\frac{\partial E}{\partial X}\leftarrow Dense\leftarrow \frac{\partial E}{\par
 here each $layer$ is the combination of a Dense Layer and its corresponding activation layer.
 
 Backpropagation has 3 things we have to take care in each layer:
-* Updating the $W$ i.e. $W := W-\alpha\frac{\partial E}{\partial W}$.
+* Updating the $W$ i.e. $W := (1-\alpha\frac{\lambda}{i})W-\alpha\frac{\partial E}{\partial W}$.
 * Updating the $B$ i.e. $B := B-\alpha\frac{\partial E}{\partial B}$.
 * Calculating the local gradient for it to be input for previous layer $\frac{\partial E}{\partial X}$. 
 
 Here $E$ is the cost function generated in final output layer and $X$ is the input values in the present layer or the output values of previous layer. $W$ and $B$ are matrix of parameters for each of next layer neuron specific to the present layer itself.
+
+$\lambda$ is the regularisation hyperparameter set by us. $i$ is the number neurons in the next Dense Layer or we can say size of $Y$.
 
 we can't directly calculate(program) $\frac{\partial E}{\partial W}$, $\frac{\partial E}{\partial B}$, $\frac{\partial E}{\partial X}$ but we can use chain rule i.e. we can calculate these using $\frac{\partial E}{\partial Y}$.
 
