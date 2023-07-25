@@ -193,7 +193,7 @@ The order of backpropagation will opposite to that of <a href="#forward-propagat
 
 Each Layer has to go through the following procedure:
 
-$$...Layer\larr \frac{\partial E}{\partial X}\larr Layer(\text{W and B are updated})\larr \frac{\partial E}{\partial Y}\larr Layer...$$
+$$...Layer \larr \frac{\partial E}{\partial X} \larr Layer(\text{W and B are updated}) \larr \frac{\partial E}{\partial Y} \larr Layer...$$
 
 $Layer \text{ is represented as}:$
 $$\frac{\partial E}{\partial X}\larr Dense\larr \frac{\partial E}{\partial Y}\harr \frac{\partial E}{\partial X_a}\larr Activation\larr \frac{\partial E}{\partial Y_a}\harr \frac{\partial E}{\partial Y}$$
