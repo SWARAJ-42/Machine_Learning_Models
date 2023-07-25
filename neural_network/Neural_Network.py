@@ -14,7 +14,7 @@ def predict(network, input):
     return output
 
 # Training function
-def train(network, err, cost_func, cost_prime, x_train, y_train, iters = 100, learning_rate = 0.01, verbose = True):
+def train(network, err, loss_func, loss_prime, x_train, y_train, iters = 100, learning_rate = 0.01, verbose = True):
     y_predicted = np.zeros_like(y_train)
 
     # No of times the training must run
@@ -36,10 +36,10 @@ def train(network, err, cost_func, cost_prime, x_train, y_train, iters = 100, le
 
             # error calculation on the final output 
             error += err(y, classfied_output)
-            cost += cost_func(y, output)
+            cost += loss_func(y, output)
 
             # backward propagation on all layers
-            grad = cost_prime(y, output) # Applying Back propagation on the final output 
+            grad = loss_prime(y, output) # Applying Back propagation on the final output 
             # Backward propagation as it sounds runs in backward direction therefore the network is reversed
             for layer in reversed(network):
                 grad = layer.backward(grad, learning_rate)
@@ -94,5 +94,8 @@ if __name__ == "__main__":
         Layer2_Activation,
     ]
 
-    train(Neural_Network, EM.binary_error, EM.logistic_cost, EM.cost_prime, Data.X_train, Data.Y_train, iters=100, learning_rate=.001)
+    train(Neural_Network, EM.binary_error, EM.logistic_loss, EM.logistic_loss_prime, Data.X_train, Data.Y_train, iters=100, learning_rate=.001)
     test(Neural_Network, EM.binary_error, Data_t.X_test, Data_t.Y_test)
+
+
+
