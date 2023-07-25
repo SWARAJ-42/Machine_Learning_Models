@@ -26,9 +26,9 @@ SD_X = np.std(X_train, axis = 0)
 X_train -= Mean_X
 X_train /= SD_X
 
-# Reshaping the data for making it fit for training on the neural network
-X_train = np.reshape(X_train, (m, 2, 1))
-Y_train = np.reshape(Y_train, (m, 1, 1))
+# Reshaping the data for making it fit for training on Logistic regression
+X_train = np.reshape(X_train, (m, 2))
+Y_train = np.reshape(Y_train, (m, 1))
 
 
 # Test the shape of the data
