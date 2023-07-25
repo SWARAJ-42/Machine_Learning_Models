@@ -73,7 +73,7 @@ Every Neuron Layer consists of two sub layers but for simplicity we will conside
                 self.weights -= (learning_rate * weights_gradient + learning_rate * self.lambda_value / np.size(self.output_size) * self.weights)
                 self.bias -= learning_rate * output_gradient 
                 return np.dot(self.weights.T, output_gradient) # The output is for the previous layer
-        ```
+    ```
 
 * Activation Layer template in <a href="./Layers_module.py">Layers_module.py</a>: 
 
