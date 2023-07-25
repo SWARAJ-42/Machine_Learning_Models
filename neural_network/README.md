@@ -177,7 +177,15 @@ This is the cost function (binary cross entropy function) implementation for sig
         return Cost
 ```
 
-## Back propagation
+## Backward propagation
+
+After finding the cost function we get the error. Now its time for training the parameters using backpropagation. We have to handle the backpropagation in 3 different types of places(layers).
+
+* The output layer (this is the activation layer only but the backpropagation algorithm will be different here than any other activation).
+* Other activation layers
+* Dense layers
+
+The order of backpropagation will opposite to that of <a href="#forward-propagation">forward propagation</a>.
 
 
 
