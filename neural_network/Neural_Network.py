@@ -49,7 +49,7 @@ def train(network, err, loss_func, loss_prime, x_train, y_train, iters = 100, le
         if verbose and e % math.ceil(iters/10) == 0 or e == (iters-1):
             print(f"Iterations: {e}, cost: {cost:2.2f}")
 
-    print(f"prediction complete on training set, accuracy: {(1-error)*100:2.2f}")
+    print(f"prediction complete on training set, accuracy: {(1-error):.2f}")
         
 
 def test(network, err, x_test, y_test):
@@ -73,7 +73,7 @@ def test(network, err, x_test, y_test):
 
     # printing the error/accuracy
     error /= len(x_test)
-    print(f"prediction complete on test set, accuracy: {(1-error)*100:2.2f}")
+    print(f"prediction complete on test set, accuracy: {(1-error):.2f}")
 
 
 if __name__ == "__main__":

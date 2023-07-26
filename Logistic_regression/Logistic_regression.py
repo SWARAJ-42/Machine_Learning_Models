@@ -155,10 +155,10 @@ class Logistic_regressor:
                 error += 1
         if test:
             print(
-                f"Prediction complete on test set, accuracy: {((1 - error / m) * 100):2.2f}")
+                f"Prediction complete on test set, accuracy: {((1 - error / m)):.2f}")
         else:
             print(
-                f"Prediction complete on training set, accuracy: {((1 - error / m) * 100):2.2f}")
+                f"Prediction complete on training set, accuracy: {((1 - error / m)):.2f}")
         return p
 
 

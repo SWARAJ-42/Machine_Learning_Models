@@ -16,8 +16,8 @@ def scikit_NN_model_execute(X_train, Y_train, X_test, Y_test):
     print("Shape of the neural network: ",[coef.shape for coef in clf.coefs_])
 
     # Reporting
-    print("Accuracy on training set:", clf.score(X_train, Y_train)*100)
-    print("Accuracy on test set:", clf.score(X_test, Y_test)*100)
+    print("Accuracy on training set:", clf.score(X_train, Y_train))
+    print("Accuracy on test set:", clf.score(X_test, Y_test))
 
 if __name__ == "__main__":
     # Reshaping the data for making it fit for training on the sklearn_MLPClassifier model
