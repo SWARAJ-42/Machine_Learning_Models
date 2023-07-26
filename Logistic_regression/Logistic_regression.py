@@ -122,9 +122,6 @@ class Logistic_regressor:
             if verbose and (i % math.ceil(self.num_iters/10) == 0 or i == (self.num_iters-1)):
                 print(f"Iteration {i:4}: Cost {float(J_history[-1]):8.2f}")
 
-        # return w and J,w history for graphing
-        return self.weights, self.bias, J_history
-
     # training with the training set
     def Train(self, verbose=True):
         self.generate_random_w_b()
@@ -159,7 +156,7 @@ class Logistic_regressor:
         else:
             print(
                 f"Prediction complete on training set, accuracy: {((1 - error / m)):.2f}")
-        return p
+        return ((1 - error / m))
 
 
 if __name__ == "__main__":
@@ -172,7 +169,7 @@ if __name__ == "__main__":
     Y_test = np.reshape(Data_t.Y_test, (Data_t.m, 1))
 
     Trainer = Logistic_regressor(X_train=X_train, Y_train=Y_train, X_test=X_test,
-                                 Y_test=Y_test, alpha=.01, num_iters=1000, lambda_val=0)
+                                 Y_test=Y_test, alpha=.01, num_iters=100, lambda_val=0)
     Trainer.Train(verbose=False)
 
     # Prediction on train set
