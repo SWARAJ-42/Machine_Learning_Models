@@ -79,9 +79,10 @@ def test(network, err, x_test, y_test):
 if __name__ == "__main__":
     '''This is the method of creating the Neural Network.'''
     # Usage: Dense(no of neurons in previous layer, no neurons to be generated in this particular layer, regularisation parameter) default value of the parameter is zero.
-    Layer1_dense = LM.Dense(2, 3, 0.001)
+    Regularisation_param = .001
+    Layer1_dense = LM.Dense(2, 3, Regularisation_param)
     Layer1_Activation = AM.ReLU()
-    Layer2_dense = LM.Dense(3, 1, 0.001)
+    Layer2_dense = LM.Dense(3, 1, Regularisation_param)
     Layer2_Activation = AM.Sigmoid()
 
     Neural_Network = [
