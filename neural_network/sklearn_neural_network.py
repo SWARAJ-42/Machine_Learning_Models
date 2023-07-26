@@ -1,23 +1,33 @@
 from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import RandomizedSearchCV
 import numpy as np
+import pandas as pd
 import Data_handling_train as Data
 import Data_handling_test as Data_t
 
 
 def scikit_NN_model_execute(X_train, Y_train, X_test, Y_test):
     # Defining the neural network
-    clf = MLPClassifier(alpha=1e-5, hidden_layer_sizes=(3), random_state=1,
+    NN_model = MLPClassifier(alpha=1e-5, hidden_layer_sizes=(3), random_state=1,
                 solver='lbfgs', max_iter=1000)
     
-    # Training the model
-    clf = clf.fit(X_train, Y_train)
-
-    # printing the shape of the neural network (I made it similar to my custom neural network)
-    print("Shape of the neural network: ",[coef.shape for coef in clf.coefs_])
+    # Applying hypertuning using RandomizedSearch to avoid over computation
+    NN_model = RandomizedSearchCV(NN_model, {
+        'alpha': [.1, .01, .0001], # learning rate parameter
+        'solver': ['adam', 'lbfgs'], # Learning optimizers
+        'hidden_layer_sizes':[(2),(3),(4)] # Neural network structure
+    }, cv=3, n_iter=5, return_train_score=False)
+    
+    # training the model with the train set
+    NN_model.fit(X_train, Y_train)
+    df = pd.DataFrame(NN_model.cv_results_)
 
     # Reporting
-    print("Accuracy on training set:", clf.score(X_train, Y_train))
-    print("Accuracy on test set:", clf.score(X_test, Y_test))
+    print(df[['param_alpha', 'param_solver', 'param_hidden_layer_sizes','mean_test_score']])
+    print(f"Best model: ",NN_model.best_estimator_)
+    print("mean_test_score of the Best model: ", NN_model.best_score_)
+    print("Score of the Best model on training set", NN_model.best_estimator_.score(X_train, Y_train))
+    print("Score of the Best model on test set", NN_model.best_estimator_.score(X_test, Y_test))
 
 if __name__ == "__main__":
     # Reshaping the data for making it fit for training on the sklearn_MLPClassifier model
