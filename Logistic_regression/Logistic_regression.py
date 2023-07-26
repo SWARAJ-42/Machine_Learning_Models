@@ -150,15 +150,38 @@ class Logistic_regressor:
             p_v = (int)(f_wb_i > 0.5)
             if p_v != y[0]:
                 error += 1
-        if test:
-            print(
-                f"Prediction complete on test set, accuracy: {((1 - error / m)):.2f}")
-        else:
-            print(
-                f"Prediction complete on training set, accuracy: {((1 - error / m)):.2f}")
         return ((1 - error / m))
 
+# GridSearch hypertuning implementation only for learning_rate and Regularisation parameter
+def Training_with_GridSearch(Lambda_arr, alpha_arr, X_train, Y_train, X_test,
+                                 Y_test):
+    Model_data = []
+    for Lambda_ in Lambda_arr:
+        for alpha_ in alpha_arr:
+            Trainer = Logistic_regressor(X_train=X_train, Y_train=Y_train, X_test=X_test,
+                                 Y_test=Y_test, alpha=alpha_, num_iters=100, lambda_val=Lambda_)
+            Trainer.Train(verbose=False)
+            # Prediction on train set
+            train_test_score = Trainer.test(test=False)
+            # prediction on test set
+            test_test_score = Trainer.test()
+            # Calculating mean_test_score for comparing the models
+            mean_test_score = (train_test_score + test_test_score) / 2
+            # tracking the trainer data
+            data = {'Model':Trainer, 'mean_test_score':mean_test_score, 'train_test_score':train_test_score, 'test_test_score':test_test_score}
+            Model_data.append(data)
+    
+    Best_model = Model_data[0]
+    for data in Model_data:
+        if Best_model['mean_test_score'] < data['mean_test_score']:
+            Best_model = data
+    
+    print("Best model parameters: ", "alpha=", Best_model['Model'].alpha,", Lambda=", Best_model['Model'].lv)
+    print("mean_test_score of the Best model: ", Best_model['mean_test_score'])
+    print("Score of the Best model on training set", Best_model['train_test_score'])
+    print("Score of the Best model on test set", Best_model['test_test_score'])
 
+        
 if __name__ == "__main__":
     # Reshaping the data for making it fit for training on the LogisticRegression model
     X_train = np.reshape(Data.X_train, (Data.m, 2))
@@ -168,6 +191,8 @@ if __name__ == "__main__":
     X_test = np.reshape(Data_t.X_test, (Data_t.m, 2))
     Y_test = np.reshape(Data_t.Y_test, (Data_t.m, 1))
 
+    # Training without GridSearch hypertuning
+    '''
     Trainer = Logistic_regressor(X_train=X_train, Y_train=Y_train, X_test=X_test,
                                  Y_test=Y_test, alpha=.01, num_iters=100, lambda_val=0)
     Trainer.Train(verbose=False)
@@ -176,3 +201,9 @@ if __name__ == "__main__":
     Trainer.test(test=False)
     # prediction on test set
     Trainer.test()
+    '''
+    # Training with GridSearch hypertuning using 2 hyperparameters
+    Lambda_arr = [.01, .1, 1]
+    alpha_arr = [.0001, .001, .01]
+    Training_with_GridSearch(Lambda_arr=Lambda_arr, alpha_arr=alpha_arr, X_train=X_train, Y_train=Y_train, X_test=X_test,
+                                 Y_test=Y_test)
