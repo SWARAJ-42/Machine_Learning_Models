@@ -1,3 +1,5 @@
+# IMPORTANT!!!!!: This is to note that I have implemented the Neural Network with only one hidden layer. Adding hidden layers will require to manually change the neural network instances through out the file but is possible.
+
 import Activation_module as AM
 import Error_analysis_module as EM
 import Layers_module as LM
@@ -46,10 +48,10 @@ def train(network, err, loss_func, loss_prime, x_train, y_train, iters = 100, le
 
         # printing the cost and iterations
         error /= len(x_train)
-        if verbose and e % math.ceil(iters/10) == 0 or e == (iters-1):
+        if verbose and (e % math.ceil(iters/10) == 0 or e == (iters-1)):
             print(f"Iterations: {e}, cost: {cost:2.2f}")
 
-    print(f"prediction complete on training set, accuracy: {(1-error):.2f}")
+    return (1-error)
         
 
 def test(network, err, x_test, y_test):
@@ -73,13 +75,62 @@ def test(network, err, x_test, y_test):
 
     # printing the error/accuracy
     error /= len(x_test)
-    print(f"prediction complete on test set, accuracy: {(1-error):.2f}")
+    return 1-error
+
+
+def Training_with_GridSearch(Lambda_arr, alpha_arr, X_train, Y_train, X_test,
+                             Y_test):
+    Model_data = []
+    for Lambda_ in Lambda_arr:
+        for alpha_ in alpha_arr:
+            Layer1_dense = LM.Dense(2, 3, Lambda_)
+            Layer1_Activation = AM.ReLU()
+            Layer2_dense = LM.Dense(3, 1, Lambda_)
+            Layer2_Activation = AM.Sigmoid()
+
+            Neural_Network = [
+                # 1st Neuron Layer: Input Layer (Hidden Layer)
+                Layer1_dense, 
+                Layer1_Activation,
+
+                # 2nd Neuron Layer: Output Layer
+                Layer2_dense, 
+                Layer2_Activation,
+
+            ]
+            # Prediction on train set
+            train_test_score = train(Neural_Network, EM.binary_error, EM.logistic_loss, EM.logistic_loss_prime, Data.X_train, Data.Y_train, iters=10, learning_rate=alpha_, verbose=False)
+            # prediction on test set
+            test_test_score = test(Neural_Network, EM.binary_error, Data_t.X_test, Data_t.Y_test)
+            # Calculating mean_test_score for comparing the models
+            mean_test_score = (train_test_score + test_test_score) / 2
+            # tracking the trainer data
+            data = {'Model': Neural_Network, 'mean_test_score': mean_test_score,
+                    'train_test_score': train_test_score, 'test_test_score': test_test_score, 'alpha':alpha_, 'lambda':Lambda_}
+            Model_data.append(data)
+            
+            
+
+    # Finding the best model
+    Best_model = Model_data[0]
+    for data in Model_data:
+        if Best_model['mean_test_score'] < data['mean_test_score']:
+            Best_model = data
+
+    # Reporting
+    print("Best model Lambda parameter: ", Best_model['lambda'])
+    print("Best model alpha parameter: ", Best_model['alpha'])
+    print("mean_test_score of the Best model: ", Best_model['mean_test_score'])
+    print("Score of the Best model on training set",
+          Best_model['train_test_score'])
+    print("Score of the Best model on test set", Best_model['test_test_score'])
 
 
 if __name__ == "__main__":
-    '''This is the method of creating the Neural Network.'''
-    # Usage: Dense(no of neurons in previous layer, no neurons to be generated in this particular layer, regularisation parameter) default value of the parameter is zero.
+    '''This is the method of implementing the Neural Network without GridSearch HYPERTUNING.'''
+    '''
     Regularisation_param = .001
+    # Usage: Dense(no of neurons in previous layer, no neurons to be generated in this particular layer, regularisation parameter) default value of the parameter is zero.
     Layer1_dense = LM.Dense(2, 3, Regularisation_param)
     Layer1_Activation = AM.ReLU()
     Layer2_dense = LM.Dense(3, 1, Regularisation_param)
@@ -97,6 +148,15 @@ if __name__ == "__main__":
 
     train(Neural_Network, EM.binary_error, EM.logistic_loss, EM.logistic_loss_prime, Data.X_train, Data.Y_train, iters=100, learning_rate=.001)
     test(Neural_Network, EM.binary_error, Data_t.X_test, Data_t.Y_test)
+    '''
+
+    # Training with GridSearch hypertuning using 2 hyperparameters
+    lambda_arr = [.1, .01, .001]
+    alpha_arr = [.0001, .002, .001]
+
+    Training_with_GridSearch(Lambda_arr=lambda_arr, alpha_arr=alpha_arr, X_train= Data.X_train, Y_train=Data.Y_train, X_test=Data_t.X_test,
+                             Y_test=Data_t.Y_test)
+
 
 
 
