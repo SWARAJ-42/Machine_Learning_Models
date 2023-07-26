@@ -3,7 +3,7 @@ import numpy as np
 import Data_handling_train as Data
 import Data_handling_test as Data_t
 
-def sklearn_logistic_reg_execute():
+def sklearn_logistic_reg_execute(X_train, Y_train, X_test, Y_test):
     # Initializing the model with default args
     '''
         LOGISTIC REGRESSION MODEL WITH DEFAULT ARGUMENTS
@@ -39,4 +39,4 @@ if __name__ == "__main__":
     X_test = np.reshape(Data_t.X_test, (Data_t.m, 2))
     Y_test = np.reshape(Data_t.Y_test, (Data_t.m))
 
-    sklearn_logistic_reg_execute()
+    sklearn_logistic_reg_execute(X_train, Y_train, X_test, Y_test)
