@@ -1,11 +1,11 @@
-**_NOTE:_**  Before going through this module. Please take a look into <a href="https://github.com/SWARAJ-42/Machine_Learning_Models/blob/main/Logistic_regression/README.md">Logistic Regression</a> first because the concepts used there are also implemented here.
+**_NOTE:_**  Before going through this module. Please take a look into [Logistic Regression](../Logistic_regression/README.md) first because the concepts used there are also implemented here.
 
 # User Guide
 There are two main files on this project.
-* <a href="./Neural_Network.py">Neural_Network.py</a> : My implementation of Neural Networks from scratch.
-* <a href="./sklearn_neural_network.py">sklearn_neural_network.py</a> : My implementation of Neural Networks using MLPClassifier from the scikit-learn Library.
+* [Neural_Network.py](./Neural_Network.py) : My implementation of Neural Networks from scratch.
+* [sklearn_neural_network.py](./sklearn_neural_network.py) : My implementation of Neural Networks using MLPClassifier from the scikit-learn Library.
 
-Simply run the python files to get the accuracy on both training set and test set by both implementations.
+Simply run the python files to run the models with hypertuning and get the various scores on both training set and test set by both implementations.
 
 # Neural Networks
 
@@ -24,11 +24,11 @@ After a certain amount of iteration the model reaches a convergence with elegent
 
 ## Layers
 
-Every layer in has certain common properties on its level in the <a href="./Neural_Network.py">Neural_Network.py</a>.
+Every layer in has certain common properties on its level in the [Neural_Network.py](./Neural_Network.py).
 * It must be able to forward propagate the data it is fed with.
 * It must be able to back propagate from the gradient of the data it generated for the next layer.
 
-Here is the layout of a layer used in every custom layer in <a href="./Layers_module.py">Layers_module.py</a>:
+Here is the layout of a layer used in every custom layer in [Layers_module.py](./Layers_module.py):
 
 ```python
     class Layer:
@@ -47,7 +47,7 @@ Here is the layout of a layer used in every custom layer in <a href="./Layers_mo
 ```
 
 Every Neuron Layer consists of two sub layers but for simplicity we will consider them as separate Neuron Layers:
-* Dense Layer in <a href="./Layers_module.py">Layers_module.py</a>:
+* Dense Layer in [Layers_module.py](./Layers_module.py)
 
     Work of the Dense layer is only to handle linear regression on fed neurons. And generate new neurons. These are then sent to the next layer(Activation layer) to perform non linear operations.
 
@@ -75,7 +75,7 @@ Every Neuron Layer consists of two sub layers but for simplicity we will conside
                 return np.dot(self.weights.T, output_gradient) # The output is for the previous layer
     ```
 
-* Activation Layer template in <a href="./Layers_module.py">Layers_module.py</a>: 
+* Activation Layer template in [Layers_module.py](./Layers_module.py): 
 
     Activation Layer are used to perform non linear operations to the Dense Layer. As linear operations donot make the model to learn in classification. Recall the Logistic regression in previous task where we calculated the linear regression output then we calculated the sigmoid of the output. The sigmoid step is done by this layer on the neurons at the same time.
 
@@ -92,7 +92,7 @@ Every Neuron Layer consists of two sub layers but for simplicity we will conside
         def backward(self, output_gradient, learning_rate):
             return np.multiply(output_gradient, self.activation_prime(self.input))
     ```
-    * Here the `activation`, `activation_prime` are custom activation and gradient functions respectively. Written in <a href="./Activation_module.py">Activation_module.py</a>
+    * Here the `activation`, `activation_prime` are custom activation and gradient functions respectively. Written in [Activation_module.py](./Activation_module.py)
 
 
 ## Forward Propagation
@@ -112,7 +112,7 @@ Lets understand how forward propagation works on every custom Layer.
     $$Y = W.X + B$$ 
     where $W = [W_1,W_2,W_3....W_i][w_1,w_2,w_3....w_j]$ and $B = [b_1, b_2...b_i]$ are the local parameters for every `Dense(Layer)` are generated randomly by the layer class initially and then are updated to train the model.
 
-    Here is the code implemented in <a href="./Layers_module.py">Layers_module.py</a>:
+    Here is the code implemented in [Layers_module.py](./Layers_module.py):
 
     ```python
         class Dense(Layer):
@@ -140,7 +140,7 @@ Lets understand how forward propagation works on every custom Layer.
     $$...$$
     $$y_{aj} := Activation( y_j )$$
 
-    Here is the code implemented in <a href="./Layers_module.py">Layers_module.py</a>:
+    Here is the code implemented in [Layers_module.py](./Layers_module.py):
 
     ```python
         class Activation(Layer):
@@ -150,7 +150,7 @@ Lets understand how forward propagation works on every custom Layer.
                 return self.activation(self.input)
         ...
     ```
-    Below is an example of a specific (sigmoid) activation function to be used in <a href="./Activation_module.py">Activation_module.py</a>:
+    Below is an example of a specific (sigmoid) activation function to be used in [Activation_module.py](./Activation_module.py):
     ```python
         class Sigmoid(LM.Activation):
             def __init__(self):
@@ -166,13 +166,13 @@ Lets understand how forward propagation works on every custom Layer.
 
 ## Loss Function
 
-After reaching the output layer on forward propagation we have to find the loss function on the output layer for the parameters $W$ and $B$ on every layers. We can recall the importance of loss function from the <a href="https://github.com/SWARAJ-42/Machine_Learning_Models/blob/main/Logistic_regression/README.md">Logistic Regression</a> task.
+After reaching the output layer on forward propagation we have to find the loss function on the output layer for the parameters $W$ and $B$ on every layers. We can recall the importance of loss function from the [Logistic Regression](../Logistic_regression/Logistic_regression.py) task.
 
 Since we are working on a classification model. We will be using sigmoid as the activation function of the output layer.
 
 **_NOTE:_** This is loss function we are talking about. Not cost function. Cost function is the summation of loss functions of all the examples.
 
-This is the loss function (binary cross entropy function) implementation for sigmoid from <a href="./Error_analysis_module.py">Error_analysis_module.py</a>:
+This is the loss function (binary cross entropy function) implementation for sigmoid from [Error_analysis_module.py](./Error_analysis_module.py):
 
 ```python
     # binary cross entropy loss function for each example
@@ -213,9 +213,9 @@ $\lambda$ is the regularisation hyperparameter set by us. $i$ is the number neur
 we can't directly calculate(program) $\frac{\partial E}{\partial W}$, $\frac{\partial E}{\partial B}$, $\frac{\partial E}{\partial X}$ but we can use chain rule i.e. we can calculate these using $\frac{\partial E}{\partial Y}$.
 
 * Underlying equation of activation layer
-$$\frac{\partial E}{\partial X_a} = \frac{\partial E}{\partial Y_a} *f^1(X_a) \tag{1}$$
+$$\frac{\partial E}{\partial X_a} = \frac{\partial E}{\partial Y_a} *f'(X_a) \tag{1}$$
 
-Here is the code implementation in <a href="./Layers_module.py">Layers_module.py</a>:
+Here is the code implementation in [Layers_module.py](./Layers_module.py):
 ```python
     class Activation(Layer):
     ...
@@ -230,7 +230,7 @@ $$\frac{\partial E}{\partial W} = X^{transpose}\frac{\partial E}{\partial Y} \ta
 $$\frac{\partial E}{\partial B} = \frac{\partial E}{\partial Y} \tag{2}$$
 $$\frac{\partial E}{\partial W} = \frac{\partial E}{\partial Y}W^{transpose} \tag{3}$$
 
-Here is the code implementation in <a href="./Layers_module.py">Layers_module.py</a>:
+Here is the code implementation in [Layers_module.py](./Layers_module.py):
 ```python
     class Dense(Layer):
     ...
@@ -255,7 +255,7 @@ $$
 \frac{\partial E}{\partial X}  = \frac{(f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - \mathbf{y}^{(i)})}{(f_{\mathbf{w},b}(\mathbf{x}^{(i)}))(1-f_{\mathbf{w},b}(\mathbf{x}^{(i)}))}f_{\mathbf{w},b}^1(\mathbf{x}^{(i)})
 $$
 
-Here is the code implementation of gradient of binary cross entropy loss function in <a href="./Error_analysis_module.py">Error_analysis_module.py</a> and <a href="./Activation_module.py">Activation_module.py</a> respectively:
+Here is the code implementation of gradient of binary cross entropy loss function in [Error_analysis_module.py](./Error_analysis_module.py) and [Activation_module.py](./Activation_module.py) respectively:
 
 
 for calculating $\frac{(f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - \mathbf{y}^{(i)})}{(f_{\mathbf{w},b}(\mathbf{x}^{(i)}))(1-f_{\mathbf{w},b}(\mathbf{x}^{(i)}))}$
@@ -263,7 +263,7 @@ for calculating $\frac{(f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - \mathbf{y}^{(i)})}{
     def logistic_cost_prime(y_expected, y_activation):
     return (y_activation-y_expected) / ((y_activation)*(1-y_activation)) 
 ```
-for calculating $f_{\mathbf{w},b}^1(\mathbf{x}^{(i)})$
+for calculating $f_{\mathbf{w},b}'(\mathbf{x}^{(i)})$
 ```python
     class Sigmoid(LM.Activation):
         ...
@@ -282,7 +282,7 @@ All these calculations program functions are defined for each example. Now we ha
 
 After we are done with this, we will complete 1 training iteration. For reaching the convergence we have to repeat the above processes multiple times.
 
-Here is the code implementation in <a href="./Neural_Network.py">Neural_Networks.py</a>:
+Here is the code implementation in [Neural_Network.py](./Neural_Network.py):
 
 ```python
     # Training function

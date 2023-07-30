@@ -1,4 +1,4 @@
-# IMPORTANT!!!!!: This is to note that I have implemented the Neural Network with only one hidden layer. Adding hidden layers will require to manually change the neural network instances through out the file but is possible.
+# IMPORTANT!!!!!: This is to note that I have implemented the Neural Network with only one hidden layer and its been done manually. Adding hidden layers will require to manually change the neural network instances through out the file but is possible. check line 130.
 
 import Activation_module as AM
 import Error_analysis_module as EM
@@ -77,7 +77,8 @@ def test(network, err, x_test, y_test):
     error /= len(x_test)
     return 1-error
 
-
+# GridSearch hypertuning implementation only for learning_rate and Regularisation parameter.
+# Here in this function I have manually created the neural network class and did not pass it as an argument. Check line 131 on how to manually implement the model and this function will make a lot more sense. 
 def Training_with_GridSearch(Lambda_arr, alpha_arr, X_train, Y_train, X_test,
                              Y_test):
     Model_data = []
@@ -96,7 +97,6 @@ def Training_with_GridSearch(Lambda_arr, alpha_arr, X_train, Y_train, X_test,
                 # 2nd Neuron Layer: Output Layer
                 Layer2_dense, 
                 Layer2_Activation,
-
             ]
             # Prediction on train set
             train_test_score = train(Neural_Network, EM.binary_error, EM.logistic_loss, EM.logistic_loss_prime, Data.X_train, Data.Y_train, iters=10, learning_rate=alpha_, verbose=False)

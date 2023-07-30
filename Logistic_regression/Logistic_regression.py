@@ -152,9 +152,9 @@ class Logistic_regressor:
                 error += 1
         return ((1 - error / m))
 
-# GridSearch hypertuning implementation only for learning_rate and Regularisation parameter
 
-
+# GridSearch hypertuning implementation only for learning_rate and Regularisation parameter.
+# Here this function is made independent to the Logistic regressor class and in this function I have manually called the logistic regressor class and did not pass it as an argument. Check line 201 on how to manually implement the model and this function will make a lot more sense. 
 def Training_with_GridSearch(Lambda_arr, alpha_arr, X_train, Y_train, X_test,
                              Y_test):
     Model_data = []

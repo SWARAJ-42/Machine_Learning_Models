@@ -1,9 +1,10 @@
 # User Guide
 There are two main files on this project.
-* <a href="./Logistic_regression.py">Logistic_regression.py</a> : My implementation of Logistic regression from scratch.
-* <a href="./sklearn_Logistic_regression.py">sklearn_Logistic_regression.py</a> : My implementation of Logistic regression using the scikit-learn Library.
 
-Simply run the python files to get the accuracy on both training set and test set by both implementations.
+* [Logistic_regression.py](./Logistic_regression.py) : My implementation of Logistic regression from scratch.
+* [skLearn_Logistic_regression.py](./skLearn_Logistic_regression.py) : My implementation of Logistic regression using the scikit-learn Library.
+
+Simply run the python files to run the models with hypertuning and get the various scores on both training set and test set by both implementations.
 
 # Logistic Regression
 The principal use of the logistic regression is in classification assignments where the objective is to estimate the likelihood that a given instance belongs to a particular class. Regression is used because it uses a sigmoid function to estimate the probability for the given class using the output of a linear regression function as input. 
@@ -27,7 +28,7 @@ where,
 $z = \mathbf{w}\cdot \mathbf{x} + b$ and $\mathbf{w}$ and $b$ are learnable parameters
 
 * Code implementation in 
-<a href="./Logistic_regression.py">Logistic_regression.py</a>:
+[Logistic_regression.py](./Logistic_regression.py):
 
 ```python
     # computing sigmoid for all the examples in the dataset at the same time
@@ -59,7 +60,7 @@ Here our main goal is to update $\mathbf{w}$ and $b$ till the decision boundary 
 In the first step we generate random initial values for $\mathbf{w}$ and $b$. 
 
 * Code implementation in 
-<a href="./Logistic_regression.py">Logistic_regression.py</a>:
+[Logistic_regression.py](./Logistic_regression.py):
 
 ```python
     def generate_random_w_b(self):
@@ -91,7 +92,7 @@ Here,
 $$loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) = (-y^{(i)} \log\left(f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) - \left( 1 - y^{(i)}\right) \log \left( 1 - f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right)$$
 
 * Code implementation in 
-<a href="./Logistic_regression.py">Logistic_regression.py</a>:
+[Logistic_regression.py](./Logistic_regression.py):
     * Note:- <a href="#regularisation">Regularisation</a> is used in this.
 ```python
     # computing the cost function: binary cross entropy
@@ -149,7 +150,7 @@ Here,
 * parameters $b$, $w_j$ (this is the parameter for each feature, remember $\mathbf{w}$ is a matrix of $w_j$ as elements) are all updated simultaniously.
 
 Code implementation for $(3)$ and $(4)$ in 
-<a href="./Logistic_regression.py">Logistic_regression.py</a>:
+[Logistic_regression.py](./Logistic_regression.py):
 * Note:- <a href="#regularisation">Regularisation</a> is used in this.
 
 ```python
@@ -180,7 +181,7 @@ Code implementation for $(3)$ and $(4)$ in
 ```
 
 Code implementation for $(1)$ and $(2)$ in 
-<a href="./Logistic_regression.py">Logistic_regression.py</a>:
+[Logistic_regression.py](./Logistic_regression.py):
 ```python
      # updating the weights and biases
     def gradient_descent(self, verbose=True):

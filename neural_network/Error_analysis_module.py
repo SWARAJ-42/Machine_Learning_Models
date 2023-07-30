@@ -10,8 +10,7 @@ def logistic_loss(y_expected, y_activation):
     Loss = np.sum(Loss) / np.size(y_expected) # This must be a float not matrix or vector
     return Loss
 
-# mean squared error loss gradient: for back propagation
-# this gradient function can also be used for the binary cross entropy loss because the math works out automatically for (specifically binary cross entropy) the only difference is the way of calculating the y_activation (which is specific to the activation function being used). 
+# logistic loss gradient: for back propagation 
 def logistic_loss_prime(y_expected, y_activation):
     return (y_activation-y_expected) / ((y_activation)*(1-y_activation))
 
